@@ -1,0 +1,74 @@
+<div class="c-card {% block classes %}{% endblock %} flex">
+
+  {% block sticker %}
+		{# <pre>{{dump(post)}}</pre> #}
+
+  <a href="{{ post.link }}">
+    <div class="c-card__sticker sticker {% block classes_sticker %}{% endblock %}" aria-hidden="true">
+      {% block sticker_content %}{% endblock %}
+    </div>
+  </a>
+  {% endblock %}
+
+  {% block subtitle_block %}
+  <div class="c-card__subtitle">
+    {% block subtitle %}{% endblock %}
+  </div>
+  {% endblock %}
+
+  <h3 class="c-card__title">
+    {% block title %}
+    {% if post.get_field('plain_language_program_name') != '' %}
+      {% set post_title = post.get_field('plain_language_program_name') %}
+    {% else %}
+      {% set post_title = post.title %}
+    {% endif %}
+    <a href="{{ post.link }}" title="{{ post_title }}" rel="bookmark">
+      {{ post_title }}
+    </a>
+    {% endblock %}
+  </h3>
+
+  {% block label %}
+  {% if show_post_type %}
+    <p class="c-card__label">
+    {% if post.post_type == 'tribe_events' %}
+      {{ __('Event', 'guny') }}
+    {% elseif post.post_type == 'age' %}
+      {{ __('Age Guides', 'guny') }}
+    {% elseif post.post_type == 'summer-guide' %}
+      {{ __('Summer Guide', 'guny') }}
+    {% elseif post.post_type == 'afterschool-guide' %}
+      {{ __('After School Guide', 'guny') }}
+    {% else %}
+      {{ __(post.post_type|replace({'_': ' '})|title, 'guny') }}
+    {% endif %}
+    </p>
+  {% endif %}
+  {% endblock %}
+
+
+
+  <div class="c-card__body">
+    {% block body %}
+    {{  post.post_excerpt ? post.post_excerpt : post.post_content|excerpt(15)  }}
+    {% endblock %}
+  </div>
+
+  {% block link %}{% endblock %}
+
+  {% block cta %}{% endblock %}
+
+  {% block tags_block %}
+  {% if post.terms %}
+    <div class="c-card__tags order-last">
+    {% block tags %}
+      {% for term in post.terms('age_group') %}
+        <a href="{{term.link}}" class="button--pill bg-{{ term.slug}}--primary">{{ term.name }}</a>
+      {% endfor %}
+    {% endblock %}
+    </div>
+  {% endif %}
+  {% endblock %}
+
+</div>

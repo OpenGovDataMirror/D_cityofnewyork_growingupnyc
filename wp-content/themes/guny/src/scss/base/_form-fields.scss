@@ -1,0 +1,323 @@
+// Forms
+//
+
+// Basic Inputs
+//
+
+// Text Input Field
+//
+// Text input field. Border turns blue on focus.
+//
+// .form-field--large - Large input field
+// .form-field--full-width - Input field spans width of parent
+//
+// markup:
+// <input type="text" class="form-field {$modifiers}"
+//
+.form-field,
+.facetwp-search {
+  appearance: none;
+  background: $white;
+  border: 1px solid transparent;
+  border-radius: rem-calc(3);
+  color: $color-text;
+
+  &--shaded {
+    background: $light-gray-2;
+  }
+  @include font-size-small;
+  font-weight: $font-weight-semibold;
+  padding: rem-calc(10 15);
+}
+
+input[type="search"].form-field {
+  appearance: none;
+}
+
+// Size Variations
+
+// Large
+.form-field--large {
+  @include font-size-x-large;
+  line-height: normal;
+  padding: rem-calc(10 75 10 20);
+
+  @include media($bp-medium) {
+    padding: rem-calc(20 95 20 25);
+  }
+}
+
+.form-field--full-width {
+  width: 100%;
+}
+
+// Icons
+
+// Layout
+.form-field__icon-container {
+  position: relative;
+}
+
+.form-field__icon {
+  display: block;
+  color: $color-primary;
+  cursor: pointer;
+  // height: rem-calc(20);
+  height: 100%;
+  // margin-top: rem-calc(-10);
+  position: absolute;
+  right: rem-calc(20);
+  top: 0;
+  width: rem-calc(20);
+
+  @include media($bp-medium) {
+    right: rem-calc(25);
+  }
+
+  &:focus {
+    color: $color-secondary;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      color: $color-secondary;
+    }
+  }
+
+  + .form-field__icon {
+    right: rem-calc(50);
+
+    @include media($bp-medium) {
+      right: rem-calc(55);
+    }
+  }
+}
+
+.form-field__icon--weak {
+  color: $color-text-weak;
+
+  &:focus {
+    color: $color-text;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      color: $color-text;
+    }
+  }
+}
+
+// Icon Size Variations
+
+// Large
+.form-field__icon--large {
+  // height: rem-calc(20);
+  // margin-top: rem-calc(-15);
+  width: rem-calc(20);
+
+  @include media($bp-medium) {
+    // height: rem-calc(30);
+    // margin-top: rem-calc(-15);
+    width: rem-calc(30);
+
+    + .form-field__icon--large {
+      right: rem-calc(65);
+    }
+  }
+}
+
+/**
+ * Dropdowns
+ */
+
+[class*='form-field-dropdown'] {
+  position: relative;
+}
+
+[class*='form-field-dropdown'] > ul {
+  background: $white;
+  color: $color-text;
+
+  position: absolute;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+  text-align: left;
+  border: 1.5rem solid $color-background-shade;
+  margin-top: 1px;
+  z-index: 1;
+}
+
+[class*='form-field-dropdown'] > ul > li {
+  padding: .2em .5em;
+}
+
+[class*='form-field-dropdown'] > ul > li.highlight {
+  cursor: pointer;
+  color: $white;
+  background-color: $color-primary;
+}
+
+[class*='form-field-dropdown'] > ul > li span {
+  color: $white;
+}
+
+// Large
+
+[class*='form-field-dropdown'][class*='--large'] {
+  @include font-size-x-large;
+  line-height: normal;
+}
+
+[class*='form-field-dropdown'][class*='--large'] > ul > li {
+  padding: rem-calc(10 40 10 20);
+
+  @include media($bp-medium) {
+    padding: rem-calc(20 60 20 25);
+  }
+}
+
+// Checkbox Field
+//
+// Stylized checkbox field.
+//
+// markup:
+// <label class="checkbox">
+//   <input type="checkbox" class="checkbox__field">
+//   <svg class="checkbox__indicator"><use xlink:href="assets/img/svg-sprite.svg#check"></use></svg>
+//   Label
+// </label>
+//
+.checkbox {
+  cursor: pointer;
+  position: relative;
+  @if ($language == 'ar') or ($language == 'ur') {
+    position: initial;
+  }
+}
+
+.checkbox__field {
+  position: absolute;
+  @if ($language == 'ar') or ($language == 'ur') {
+    position: absolute;
+  }
+  opacity: 0;
+  z-index: -1;
+}
+
+.checkbox__indicator {
+  background: $white;
+  border-radius: 3px;
+  border: 2px solid $white;
+  display: inline-block;
+  color: transparent;
+  height: rem-calc(15);
+  width: rem-calc(15);
+  vertical-align: middle;
+  @include media($bp-large) {
+    height: rem-calc(20);
+    width: rem-calc(20);
+  }
+}
+
+.checkbox__field:checked + .checkbox__indicator {
+  color: $color-secondary;
+}
+
+.checkbox__field:focus + .checkbox__indicator {
+  border-color: $dark-gray;
+}
+
+.checkbox__field.is-error + .checkbox__indicator {
+  border-color: $color-error;
+}
+
+// blue
+.checkbox__indicator-blue {
+  @extend .checkbox__indicator;
+  border: 2px solid $bright-blue;
+}
+
+// purple
+.checkbox__indicator-purple {
+  @extend .checkbox__indicator;
+  border: 2px solid $purple;
+}
+
+// black
+.checkbox__indicator-dark-gray {
+  @extend .checkbox__indicator;
+  border: 2px solid $dark-gray;
+}
+
+.checkbox__field:checked + .checkbox__indicator-purple {
+  color: $dark-purple;
+}
+
+.checkbox__field:focus + .checkbox__indicator-purple {
+  border-color: $dark-gray;
+}
+
+.checkbox__field.is-error + .checkbox__indicator-purple {
+  border-color: $color-error;
+}
+
+// orange
+.checkbox__indicator-orange {
+  @extend .checkbox__indicator;
+}
+
+.checkbox__field:checked + .checkbox__indicator-orange {
+  color: $vivid-orange;
+}
+
+// dark-green
+.checkbox__indicator-dark-green {
+  @extend .checkbox__indicator;
+}
+
+.checkbox__field:checked + .checkbox__indicator-dark-green {
+  color: $dark-green;
+}
+
+// dark-blue
+.checkbox__indicator-dark-blue {
+  @extend .checkbox__indicator;
+}
+
+.checkbox__field:checked + .checkbox__indicator-dark-blue {
+  color: $dark-blue;
+}
+
+.input__field {
+  border: 2px solid transparent;
+  width: 100%;
+
+  &:focus {
+    border-color: $dark-gray;
+    outline: none;
+  }
+
+  &.is-error {
+    border-color: $color-error;
+  }
+}
+
+.input__field-bg-very-light-gray {
+  @extend .input__field;
+  background: $very-light-gray;
+
+  &:focus {
+    border-color: $strong-blue;
+  }
+
+  &.is-error {
+    border-color: $color-error;
+  }
+}

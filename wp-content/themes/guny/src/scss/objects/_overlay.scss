@@ -1,0 +1,28 @@
+// Overlay
+//
+// Layout object for overlay content.
+
+// Local Variables
+$transition-function: cubic-bezier(0, 1, .5, 1);
+
+.o-overlay {
+  background: $very-light-gray;
+  box-shadow: $color-shadow 0 2px 4px 0;
+  left: 0;
+  padding: rem-calc(55 0 10);
+  position: absolute;
+  width: 100%;
+  z-index: $z-index-search-overlay;
+
+  opacity: 0;
+  pointer-events: none;
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @include media($bp-medium) {
+    padding-top: rem-calc(110);
+  }
+}

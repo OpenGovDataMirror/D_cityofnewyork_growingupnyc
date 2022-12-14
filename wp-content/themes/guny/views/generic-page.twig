@@ -1,0 +1,101 @@
+{% extends "base.twig" %}
+
+
+{% block head_extras %}
+  <style>
+    .c-hero {
+      background-color: #469BFF;
+      background-image: url(/wp-content/themes/guny/assets/img/hero-programs.svg);
+    }
+  </style>
+
+  {% if post.get_field('mt_google_translate') == 'Yes' and language_code != 'en' %}
+    {% include ['services/google-translate.twig'] %}
+  {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+  {% if post.get_field('mt_google_translate') == 'Yes' and language_code != 'en' %}
+    <div machine-translate="{{post.get_field('mt_google_translate')}}"></div>
+    <div id="google_translate_element" class="hidden"></div>
+  {% endif %}
+
+  <div class="js-parallax">
+    <header class="c-hero c-hero--large c-hero--long-text js-parallax-content">
+      <div class="o-container js-parallax-text">
+        <h1 class="c-hero__title--long">
+          {{ post.title }} {# translation comes from page content #}
+        </h1>
+      </div>
+    </header>
+  </div> <!-- /.js-parallax -->
+
+  <article class="o-container u-bottom-spacing-small js-sticky-container desktop:flex">
+
+    {% if sections %}
+    <aside class="o-article-sidebar desktop:w-sidebar">
+      <div class="o-content-container--compact u-shift-up">
+        <ol class="c-nav-list js-sticky js-section-set o-sticky-nav">
+
+          {% for section in sections %}
+            {% if section.section_display == "Yes" %}
+            <li class="c-nav-list__item">
+              <a class="js-section c-nav-list__link scroll" href="#section-{{ section.slug }}" data-section="section-{{ section.slug }}">
+                {{ section.section_title }} {# translation comes from page content #}
+                <svg aria-hidden="true" class="icon--caret">
+                  <use xlink:href="#icon-caret-right"></use>
+                </svg>
+              </a>
+            </li>
+            {% endif %}
+          {% endfor %}
+
+        </ol>
+      </div>
+    </aside>
+    {% endif %}
+
+    <div class="o-article js-sticky-article desktop:w-article">
+      <div class="o-content-container--compact">
+
+        {% if post.content %}
+        <section class="o-content-container--text s-wysiwyg u-top-spacing-small" data-id="section-summary">
+          {{ post.content }}
+        </section>
+        {% endif %}
+
+        {% if sections %}
+          {% set section_previous = false %}
+          {% set section_no_divider_after = ['newsletter-signup'] %}
+          {% for key, section in sections %}
+            {% if section.section_display == "Yes" %}
+              {% include 'partials/' ~ section.acf_fc_layout ~ '.twig' with {title: section.section_title, id: 'section-' ~ section.slug, class: ''} %}
+
+              {% if section_previous and section_previous in section_no_divider_after %}<hr>{% endif %}
+
+              {% set section_previous = section.acf_fc_layout %}
+
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+      </div>
+
+      {# Last Modified Date #}
+      <div id='last-modified-date' class="o-content-container--compact">
+        <div class="u-top-spacing-small">
+          <div class="o-content-container--text s-wysiwyg text-gray">
+            <p>{{ __('Updated', 'GUNY-Single-Program') }} {{post.post_modified|date}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </article>
+
+  {# Back to top #}
+  {% include 'components/back-to-top.twig' %}
+
+{% endblock %}

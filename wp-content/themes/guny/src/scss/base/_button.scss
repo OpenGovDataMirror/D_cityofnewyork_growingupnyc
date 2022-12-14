@@ -1,0 +1,410 @@
+// Base Elements
+//
+
+// Buttons
+//
+
+// Common styles across buttons
+%button-base {
+  border: 2px solid $color-text-invert;
+  border-radius: rem-calc(25);
+  display: inline-block;
+  font-family: $font-family-display;
+  @include font-size-regular;
+  font-weight: $font-weight-extrablack;
+  line-height: 1;
+  min-width: rem-calc(125);
+  padding: rem-calc(14 30);
+  text-align: center;
+  text-decoration: none;
+  transition: $button-transition;
+
+  @include media($bp-small) {
+    min-width: rem-calc(150);
+  }
+}
+
+// Primary button
+//
+// Primary button. Solid color initially and turns ghosty on hover
+//
+// .button--primary - Primary button
+// .button--full-width - Button spans width of parent
+//
+// markup:
+// <a class="button--primary {$modifiers}">Button</a>
+// <button class="button--primary {$modifiers}">Button</button>
+//
+.button--primary {
+  @extend %button-base;
+  background: $color-text-invert;
+  color: $color-text;
+  letter-spacing: 1px;
+
+  &:focus {
+    background: transparent;
+    color: $color-text-invert;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: transparent;
+      color: $color-text-invert;
+    }
+  }
+
+  &--blue {
+    color: $color-secondary;
+  }
+
+  &--dark-gray {
+    margin-top: rem-calc(30);
+    background: $dark-gray;
+    color: $white;
+    &:focus {
+      background: $black;
+      color: $white;
+    }
+
+    .no-touchevents & {
+      &:hover {
+        background: $black;
+        color: $white;
+      }
+    }
+  }
+}
+
+// Outlined Button
+//
+// Secondary button. Ghosty initially and turns solid on hover
+//
+// .button--outline--gray - Grey outline
+// .button--outline--white - White outline
+//
+// markup:
+// <a class="button--outline {$modifiers}">Button</a>
+// <button class="button--outline {$modifiers}">Button</button>
+//
+.button--outline {
+  @extend %button-base;
+  background: transparent;
+  letter-spacing: 1px;
+
+  &--gray {
+    border-color: $color-text;
+    color: $color-text;
+    opacity: .7;
+
+    &:focus {
+      color: $color-text;
+      opacity: 1;
+    }
+
+    .no-touchevents & {
+      &:hover {
+        color: $color-text;
+        opacity: 1;
+      }
+    }
+  }
+
+  &--strong-blue {
+    border-color: $strong-blue;
+    color: $strong-blue;
+    opacity: .7;
+
+    &:focus {
+      color: $strong-blue;
+      opacity: 1;
+    }
+
+    .no-touchevents & {
+      &:hover {
+        color: $strong-blue;
+        opacity: 1;
+      }
+    }
+  }
+
+  &--white {
+    border-color: $color-text-invert;
+    color: $color-text-invert;
+
+    &:focus {
+      background: $color-text-invert;
+      color: $color-primary;
+    }
+
+    .no-touchevents & {
+      &:hover {
+        background: $color-text-invert;
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+// Pill button
+//
+// Pill button. Used primarily for tags
+//
+// .button--pill - Standard, primary-colored version
+// .button--pill--alt - Darker-colored version
+//
+// markup:
+// <button class="button--pill {$modifiers}">Button Text</button>
+//
+.button--pill {
+  @extend %button-base;
+  background: $color-primary;
+  border: 0;
+  border-radius: rem-calc(15);
+  color: $color-text-invert;
+  @include font-size($font-size-xx-small);
+  margin: rem-calc(0 2 4 0);
+  min-width: 0;
+  padding: rem-calc(10 17);
+
+  &:focus {
+    background: $color-secondary;
+    color: $color-text-invert;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $color-secondary;
+      color: $color-text-invert;
+    }
+  }
+
+  @include media($bp-small) {
+    min-width: 0;
+  }
+}
+
+.button--pill--alt {
+  background: $color-secondary;
+
+  &:focus {
+    background: $very-dark-blue;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $very-dark-blue;
+    }
+  }
+}
+
+.button--pill--es {
+  background: $purple;
+
+  &:focus {
+    background: $dark-purple;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $dark-purple;
+    }
+  }
+}
+
+// pill age groups
+.button--pill--baby {
+  background: $color-baby;
+
+  &:focus {
+    background: $color-baby-secondary;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $color-baby-secondary;
+    }
+  }
+}
+
+.button--pill--toddler {
+  background: $color-toddler;
+
+  &:focus {
+    background: $color-toddler-secondary;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $color-toddler-secondary;
+    }
+  }
+}
+
+.button--pill--pre-schooler {
+  background: $color-pre-schooler;
+
+  &:focus {
+    background: $color-pre-schooler-secondary;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $color-pre-schooler-secondary;
+    }
+  }
+}
+
+// Simple Button
+//
+// Basic blue button used for links within a detail page
+//
+// .button--simple - Simple button
+// .button--simple--alt - Alternate, darker blue version
+//
+// markup:
+// <a class="button--simple {$modifiers}">Button</a>
+// <button class="button--simple">Button</button>
+//
+.button--simple {
+  @extend %button-base;
+  background: $color-primary;
+  border: none;
+  color: $color-text-invert;
+
+  &:focus {
+    background: $color-secondary;
+    color: $color-text-invert;
+    outline: none;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $color-secondary;
+      color: $color-text-invert;
+      outline: none;
+    }
+  }
+}
+
+.button--simple--alt {
+  background: $color-secondary;
+
+  &:focus {
+    background: $very-dark-blue;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $very-dark-blue;
+    }
+  }
+}
+
+// Size Variations
+// Full-width
+.button--full-width {
+  width: 100%;
+}
+
+.button--sm-width {
+  width: 20%;
+}
+
+// Text-only button
+//
+// Button styled to look like a text link.
+// Can also be used with an SVG icon for an icon-only button
+//
+// markup:
+// <button class="button--text">Button Text</button>
+//
+.button--text {
+  color: $color-primary;
+  min-height: 0;
+
+  &:focus {
+    color: $color-secondary;
+    outline: none;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      color: $color-secondary;
+    }
+  }
+}
+
+// mircosite
+.button--text-microsite {
+  color: $gray-1;
+  min-height: 0;
+
+  &:focus {
+    color: $dark-gray-1;
+    outline: none;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      color: $dark-gray-1;
+    }
+  }
+}
+
+//Curved blue button
+.button--primary__blue {
+  background: $strong-blue;
+  color: $white;
+  border-color: $strong-blue;
+  text-transform: none;
+  &:focus {
+    background: $blue-2;
+    border-color: $blue-2;
+    color: $white;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $blue-2;
+      border-color: $blue-2;
+      color: $white !important;
+    }
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    background: $blue-2;
+    border-color: $blue-2;
+    color: $white;
+    cursor: default;
+  }
+}
+
+//Curved orange button
+.button--primary__vivid-orange {
+  background: $bright-red;
+  color: $white;
+  border-color: $bright-red;
+  text-transform: none;
+  &:focus {
+    background: $pure-orange;
+    border-color: $white;
+    color: $white !important;
+  }
+
+  .no-touchevents & {
+    &:hover {
+      background: $pure-orange;
+      border-color: $pure-orange;
+      color: $white !important;
+    }
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    background: $pure-orange;
+    border-color: $pure-orange;
+    color: $white !important;
+    cursor: default;
+  }
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html lang="en" class="no-js oldie">
+<![endif]-->
+<!--[if IE 9 ]>
+<html lang="en" class="no-js ie9">
+<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="{{meta_desc}}">
+  <meta name="keywords" content="{{meta_keywords}}">
+  <link rel="manifest" href="{{theme.path}}/manifest-ms.json">
+
+  {% if custom_favicon %}
+  <link rel="icon" type="image" href="{{custom_favicon}}">
+  {% else %}
+  <link rel="icon" type="image" href="{{theme.path}}/assets/img/microsite-favicon.png">
+  {% endif %}
+  
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{theme.path}}/assets/img/microsite-Icon-App-76x76@3x.png">
+  <link rel="stylesheet" href="{{theme.path}}/src/css/owl.theme.default.min.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="{{theme.path}}/src/css/owl.carousel.min.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="{{theme.path}}/src/css/animate.css" type="text/css" media="screen">
+
+  <script>
+    (function(d) {
+      var config = {
+        kitId: 'wty8eeo',
+        scriptTimeout: 3000,
+        async: true,
+        active: function() {
+          if (typeof jQuery === 'function') {
+            jQuery('.js-accordion').trigger('fontsActive');
+          }
+        }
+      },
+      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+  </script>
+  
+  {{ function('enqueue_language_style', 'style') }}
+
+
+  {{ function('wp_head') }}
+  {% block head_extras %}{% endblock %}
+  {% block scripts_head %}
+    {% include 'services/google-analytics.twig' %}
+    {% include 'services/google-tag-manager.twig' %}
+  {% endblock %}
+</head>
+
+<body class="{{body_class}}" data-template="base.twig">
+  {% include 'services/google-tag-manager-noscript.twig' %}
+  <div class="hidden" aria-hidden="true" style="display:none;">
+  {% include 'partials/svg-sprite.twig' %}
+  </div>
+  <div class="o-offcanvas js-offcanvas" id="offcanvas-generationnyc">
+    <a href="#main" class="show-for-keyboard">Skip to main content</a>
+    <nav class="o-offcanvas__side js-offcanvas__side" id="generationnyc-menu" role="navigation" aria-label="generationnyc-menu-heading">
+      <h2 id="generationnyc-menu-heading" class="show-for-screen-reader">Resources by Type</h2>
+      <button data-js="offcanvas-generationnyc" class="o-offcanvas__close button--text-microsite"><svg class="icon--small" role="img"><title>Close Resources by Type</title><use xlink:href="#icon-close"></use></svg></button>
+      <ol class="c-list-box c-list-box--microsite" data-multiselectable="true">
+        {% for menu_item in ms_menu.get_items %}
+          <li class="c-list-box__item">
+            <h3 class="c-list-box__heading" id="generationnyc-menu-heading-{{loop.index}}" tabindex="0">
+              <a href="{{menu_item.link}}" class="c-list-box__subitem">{{menu_item.title}}</a>
+            </h3>
+          </li>
+        {% endfor %}
+      </ol>
+    </nav>
+
+    <div class="o-offcanvas__main js-offcanvas__main">
+      {% block header %}
+        <header class="c-banner">
+          <div class="o-container">
+            <a href="/generationnyc" class="c-banner__logo-wrapper"><span class="c-banner__logo c-banner-ms__logo">Generation NYC</span></a>
+            <nav class="c-banner__nav" role="navigation" aria-label="Primary">
+              <ul class="o-inline o-inline-ms">
+                {% for menu_item in ms_menu.get_items %}
+                  <li class="o-inline__item desktop-only"><a href="{{menu_item.link}}" class="c-banner__link">{{menu_item.title}}</a></li>
+                {% endfor %}
+              {# Menu toggle on mobile #}
+                <li class="o-inline__item mobile-only__nav"><a href="#mobile-nav" data-js="offcanvas-generationnyc" class="c-banner__link">Menu</a></li>
+              {# end of Menu toggle on mobile #}
+
+              {% if function('Search\\visible') %}
+                <li class="o-inline__item desktop-only">
+                   <a class="c-banner__link" href="#search" data-toggle="overlay-search" data-toggle-class="fadeInDown">
+                     <svg class="c-banner__icon c-banner__icon__search" role="img"><title>Search</title><use xlink:href="#icon-search"></use></svg>
+                     <svg class="c-banner__icon c-banner__icon__close" role="img"><title>Search</title><use xlink:href="#icon-close"></use></svg>
+                   </a>
+                </li>
+              {% endif %}
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+        {# search #}
+        {% if function('Search\\visible') %}
+          {% include 'partials/search-overlay.twig' %}
+        {% endif %}
+        {# search end #}
+
+      {% endblock %}
+
+      <main id="main" role="main">
+        {% block content %}
+          <section class="post-list small-12 columns">
+            <p>Sorry, no entries match your criteria</p>
+          </section> <!-- /.post-list.small-12.columns -->
+        {% endblock %}
+      </main> <!-- /#main -->
+
+      <footer class="c-footer" role="contentinfo">
+        <div class="o-container">
+          <div class="c-footer__section">
+            <div class="c-footer__logos">
+              <figure class="c-footer__logo">
+                <img alt="Generation NYC" src="{{theme.link}}/assets/img/logo-gnyc-white@236px.png" width="118">
+              </figure>
+              <figure class="c-footer__logo">
+                <a href="http://www1.nyc.gov/site/childrenscabinet/index.page" target="_blank"><img alt="Link to NYC Children's Cabinet website" src="{{theme.link}}/assets/img/NYC-childrens-cabinet.svg" height="69" width="157"></a>
+              </figure>
+            </div>
+            <nav role="navigation" class="c-footer__nav" aria-label="Secondary">
+              <ul class="c-footer__column">
+                <li class="c-footer__nav-item">
+                  <a class="c-footer__link" href="{{ site.url }}/generationnyc/">{{ __('Home', 'GUNY-Footer') }}</a>
+                </li>
+                {% if ms_menu.id %}{% for m in ms_menu.get_items %}
+                <li class="c-footer__nav-item {{ m._menu_item_classes|join(' ') }}">
+                  <a class="c-footer__link" href="{{ m.link }}"
+                  {% if m.attr_title != '' %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
+                  {% if m.target != '' %}target="{{ m.target }}"{% endif %}
+                  {% if m.xfn != '' %}rel="{{ m.xfn }}"{% endif %}
+                  >
+                    {{ m.title }}
+                  </a>
+                </li>
+                {% endfor %}{% endif %}
+                {% if ms_footer_menu_primary_additional.id %}{% for m in ms_footer_menu_primary_additional.get_items %}
+                <li class="c-footer__nav-item {{ m._menu_item_classes|join(' ') }}">
+                  <a class="c-footer__link" href="{{ m.link }}"
+                  {% if m.attr_title != '' %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
+                  {% if m.target != '' %}target="{{ m.target }}"{% endif %}
+                  {% if m.xfn != '' %}rel="{{ m.xfn }}"{% endif %}
+                  >
+                    {{ m.title }}
+                  </a>
+                </li>
+                {% endfor %}{% endif %}
+                {% if footer_menu_left.id %}{% for m in footer_menu_left.get_items %}
+                <li class="c-footer__nav-item {{ m._menu_item_classes|join(' ') }}">
+                  <a class="c-footer__link" href="{{ m.link }}"
+                  {% if m.attr_title != '' %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
+                  {% if m.target != '' %}target="{{ m.target }}"{% endif %}
+                  {% if m.xfn != '' %}rel="{{ m.xfn }}"{% endif %}
+                  >
+                    {{ m.title }}
+                  </a>
+                </li>
+                {% endfor %}{% endif %}
+              </ul>
+              <ul class="c-footer__column">
+                {% if ms_footer_menu_right.id %}{% for m in ms_footer_menu_right.get_items %}
+                <li class="c-footer__nav-item {{ m._menu_item_classes|join(' ') }}">
+                  <a class="c-footer__link" href="{{ m.link }}"
+                  {% if m.attr_title != '' %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
+                  {% if m.target != '' %}target="{{ m.target }}"{% endif %}
+                  {% if m.xfn != '' %}rel="{{ m.xfn }}"{% endif %}
+                  >
+                    {{ m.title }}
+                  </a>
+                </li>
+                {% endfor %}{% endif %}
+              </ul>
+            </nav>
+          </div>
+        </div> <!-- /.o-container -->
+        <div class="o-container">
+          <div class="c-footer__footer">
+            <p>&copy; {{now|date('Y')}} {{ __('City of New York. All Rights Reserved.', 'GUNY-Footer') }}<br>{{ __('NYC is a trademark and service mark of the City of New York', 'GUNY-Footer') }}</p>
+          </div>
+        </div>
+        <div class="c-footer__reached"></div>
+      </footer> <!-- /.c-footer -->
+
+      {# alert banner #}
+      {% if not has_embed %}
+        {% include 'banner-microsite.twig' %}
+      {% endif %}
+      {# alert banner end #}
+
+      <a class="o-offcanvas__overlay" data-js="offcanvas-generationnyc" aria-hidden="true"></a>
+    </div> <!-- /.o-offcanvas__main -->
+  </div> <!-- /.o-offcanvas -->
+
+  {{ function('enqueue_script', 'source') }}
+
+  {{ wp_footer }}
+
+</body>
+</html>

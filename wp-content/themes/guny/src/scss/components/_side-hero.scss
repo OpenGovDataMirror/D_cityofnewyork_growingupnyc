@@ -1,0 +1,116 @@
+// Side Hero
+//
+// Full height left aligned hero
+//
+// markup:
+// <header class="c-side-hero">
+//   <div class="c-side-hero__image--desktop"></div>
+//   <div class="c-side-hero__image--mobile"></div>
+//   <div class="c-side-hero__content">
+//     <h1 class="c-side-hero__title">
+//       Hero Title
+//       <div class="c-side-hero__title__large rotating-text">
+//         <span class="rotating-text__entry">
+//           Text 1
+//         </span>
+//         <span class="rotating-text__entry">
+//           Text 2
+//         </span>
+//         <span class="rotating-text__entry">
+//           Text 3
+//         </span>
+//         <span class="rotating-text__entry">
+//           Text 4
+//         </span>
+//       </div>
+//     </h1>
+//   </div>
+// </header>
+//
+.c-side-hero__image {
+  background: $color-primary center center no-repeat;
+  background-size: cover;
+  height: 53.3333333vw;
+
+  @include media($bp-large) {
+    height: 100%;
+  }
+}
+
+.c-side-hero__content {
+  color: $white;
+  padding: rem-calc(40 15);
+  text-align: center;
+
+
+
+  > * {
+    position: relative;
+    z-index: $z-index-hero-title;
+  }
+
+  @include media($bp-mobile-only) {
+    background: $color-primary;
+    @include splatter(top, left);
+    @include splatter(bottom, right);
+  }
+
+  @include media($bp-large) {
+    bottom: 0;
+    left: 0;
+    padding: rem-calc(60);
+    position: absolute;
+    width: 100%;
+    text-align: left;
+
+    @if ($language == 'ar') or ($language == 'ur') {
+      text-align: right;
+    }
+  }
+}
+
+@include media($bp-large) {
+  .js {
+    .c-side-hero__content {
+      position: fixed;
+    }
+
+    .is-bottom .c-side-hero__content {
+      left: rem-calc(-4); // accounts for border on container
+      position: absolute;
+      width: 100%;
+    }
+  }
+}
+
+.c-side-hero__title {
+  @include font-size-x-large;
+  line-height: 1.2;
+  margin-bottom: rem-calc(10);
+
+  @include media($bp-large) {
+    margin-bottom: rem-calc(20);
+  }
+}
+
+.c-side-hero__title__large {
+  @include font-size-xxx-large;
+  text-transform: capitalize;
+  // white-space: nowrap;
+
+  .rotating-text__entry {
+    //display: block;
+    display: none !important;
+    width: 100%;
+  }
+}
+
+.c-side-hero__tagline {
+  font-size: rem-calc($font-size-xx-large * $font-size-ratio);
+  margin-top: rem-calc(10);
+  margin-bottom: rem-calc(15);
+
+  @include media($bp-medium) {
+    font-size: rem-calc($font-size-xx-large);
+  }
+}

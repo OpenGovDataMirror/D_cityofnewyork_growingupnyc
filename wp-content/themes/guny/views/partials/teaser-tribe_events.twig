@@ -1,0 +1,46 @@
+{% extends "partials/teaser.twig" %}
+
+{% block classes %}c-card--subtitle-first{% endblock %}
+
+{% block sticker_content %}
+  {% if post.multiday %}
+  <span class="event-month-date" {% if language_code == 'es' %}style="text-transform: lowercase"{% endif %}>{{post.start_datetime|date('M j')}} -</span>
+  <span class="event-month-date" {% if language_code == 'es' %}style="text-transform: lowercase"{% endif %}>{{post.end_datetime|date('M j')}}</span>
+  {% else %}
+  <span {% if language_code == 'es' %}style="text-transform: lowercase"{% endif %}>{{post.start_date_formatted}}</span>
+  {% endif %}
+{% endblock %}
+
+{% block subtitle %}
+  {% include "partials/event-date.twig" %}
+{% endblock %}
+
+{% block tags %}
+  {% set event_link = function('get_post_type_archive_link', 'tribe_events') %}
+
+  {% for term in post.terms('tribe_events_cat') %}
+  <a href="{{ event_link }}?cat_id={{ function('Wpml\\get_translated_term_id', term.ID, 'tribe_events_cat') }}"
+     class="button--pill button--pill--alt {% if function('Wpml\\get_translated_term_slug', term.ID, 'tribe_events_cat') == 'espanol' %}button--pill--es{% endif %}">
+     {{ term.name }}
+  </a>
+  {% endfor %}
+
+  {% for term in post.terms('age_group') %}
+  <a href="{{ event_link }}?age_id={{ function('Wpml\\get_translated_term_id', term.ID, 'tribe_events_cat') }}"
+     class="button--pill bg-{{ term.slug|replace({(['-',language_code]|join):''}) }}--primary">
+      {{ term.name }}
+  </a>
+  {% endfor %}
+{% endblock %}
+
+{% block link %}
+  {% if post.venue %}
+  <p class="c-card__link">
+    {% include 'partials/event-link.twig' %}
+  </p>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+{{post.post_excerpt ? post.post_excerpt : post.summary|excerpt(15)}}
+{% endblock %}

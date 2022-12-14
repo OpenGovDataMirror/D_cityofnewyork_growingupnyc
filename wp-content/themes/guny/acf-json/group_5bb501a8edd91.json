@@ -1,0 +1,143 @@
+{
+    "key": "group_5bb501a8edd91",
+    "title": "Banner - Page Specific",
+    "fields": [
+        {
+            "key": "field_5bb501a92fc3e",
+            "label": "Override Global Banner",
+            "name": "update_banner",
+            "type": "true_false",
+            "instructions": "Replace the primary banner set for Growing Up or Generation with a banner specific to this program or topic page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Select to override global banner",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5bb501a92fd36",
+            "label": "Select Banner",
+            "name": "current_banner",
+            "type": "post_object",
+            "instructions": "Select the banner you would like to display at the bottom of the page.",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5bb501a92fc3e",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "banner"
+            ],
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "id",
+            "ui": 1
+        },
+        {
+            "key": "field_5e7cd33af4baf",
+            "label": "Banner Alert Show",
+            "name": "banner_alert_show",
+            "type": "radio",
+            "instructions": "Select Yes to add an in-body alert.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Yes": "Yes",
+                "No": "No"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "No",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_5e7cd3b0f4bb0",
+            "label": "Banner Alert Message",
+            "name": "banner_alert_message",
+            "type": "post_object",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5e7cd33af4baf",
+                        "operator": "==",
+                        "value": "Yes"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "banner"
+            ],
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "topic"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "program"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-landing_page.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "comments"
+    ],
+    "active": true,
+    "description": "This banner is applied to a program (GU) or topic (Gen) page. It overwrites the global banner set for GU (home) or Gen (youth) pages."
+}

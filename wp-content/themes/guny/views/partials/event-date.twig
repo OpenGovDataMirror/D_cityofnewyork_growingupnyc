@@ -1,0 +1,12 @@
+<svg role="img" class="icon--xxsmall" aria-hidden="true"><title>Time:</title><use xlink:href="#icon-clock-o"></use></svg>
+{% if post.all_day %}
+  All Day
+{% elseif post.multiday %}
+<span class="whitespace-no-wrap">{{post.start_datetime|date('D M j g:i A')}}</span>
+- <span class="whitespace-no-wrap">{{post.end_datetime|date('D M j g:i A')}}</span>
+{% else %}
+  <span class="whitespace-no-wrap">{{post.start_datetime|date('g:i A')}}</span>
+  {% if not post.multiday and post.end_datetime != post.start_datetime %}
+    - <span class="whitespace-no-wrap">{{post.end_datetime|date('g:i A')}}</span>
+  {% endif %}
+{% endif %}

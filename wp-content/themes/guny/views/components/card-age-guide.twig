@@ -1,0 +1,26 @@
+{% set age = post.terms('age_group')[0].slug|replace({(['-',language_code]|join):''}) %}
+
+<div class="age-guide-card border-{{age}}--primary">
+  {% block title %}
+    <h3 class="age-guide-card__title bg-{{age}}--primary hover:bg-{{age}}--secondary">
+      <a href="{{ post.link }}" title="{{ post.title }}" class="age-guide-card__title-link">
+        {{ post.title }}
+      </a>
+    </h3>
+  {% endblock %}
+
+  {% block body %}
+    <div class="age-guide-card__body">
+    {% if language_code == 'es' %}
+      {{  post.intro_content ? post.intro_content|slice(0, 60) ~ '...' : post.intro_content|slice(0, 60) ~ '...'   }}
+    {% else %}
+      {{  post.post_excerpt ? post.post_excerpt : post.post_content|excerpt(15)  }}
+    {% endif %}
+
+      <div>
+        <a href="{{post.link}}" class="age-guide-card__link" title="{{ __('Read the age guide for:', 'guny') }} {{ post.title }}">{{ __('Read more', 'guny') }}<svg aria-hidden="true" class="icon--caret--small"><use xlink:href="#icon-caret-line-right"></use></svg></a>
+      </div>
+    </div>
+  {% endblock %}
+
+</div>

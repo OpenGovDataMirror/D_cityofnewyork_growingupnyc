@@ -1,0 +1,80 @@
+{
+    "key": "group_57acc960199aa",
+    "title": "Banner - Global",
+    "fields": [
+        {
+            "key": "field_57acc9f64cedd",
+            "label": "Show Banner",
+            "name": "show_banner",
+            "type": "true_false",
+            "instructions": "Display a primary banner for Growing Up or Generation site wide.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Select to show banner at the bottom of all pages.",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_57ae0b16d3897",
+            "label": "Select Banner",
+            "name": "current_banner",
+            "type": "post_object",
+            "instructions": "Select the banner you would like to display at the bottom of the page.",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_57acc9f64cedd",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "banner"
+            ],
+            "taxonomy": "",
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "id",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "16354"
+            }
+        ],
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "6468"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "This banner is applied site wide. It can be overwritten for program (GU) or topic (Gen) pages.",
+    "modified": 1562695644
+}
